@@ -3,15 +3,19 @@
         var options = merge(opt);
         this.each(function(){
             var timerHolder = $(this);           
-            main(timerHolder, options.callback);
+            main(timerHolder, options.callback, options.time);
         });
         return this;
     }
     function merge(opt){
         var defaults = {
-            callback: null
+            callback: null,
+            time: null
         }
         return $.extend({}, defaults, opt);
+    }
+    function setTime(timerHolder, timeText){
+        timerHolder.text(timeText)
     }
     function checkNaN(timerHolder){
         var timerText = timerHolder.text();
@@ -22,7 +26,10 @@
             return true;
         }
     }
-    function main(timerHolder, callback){
+    function main(timerHolder, callback, timeText){
+        if(timeText){
+            timerHolder.text(timeText)
+        }
         if(checkNaN(timerHolder)){
             setTimeout(function(){
                 timerFun(timerHolder);
